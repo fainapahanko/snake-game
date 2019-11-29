@@ -15,6 +15,8 @@ var snake
         snake.upDate()
         fruit.draw()
         snake.draw()
+
+        if(snake.eatFruit(fruit)) fruit.location()
     },300)
 }());
 

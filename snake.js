@@ -1,17 +1,29 @@
 function Snake(){
-    this.x = 0
-    this.y = 0
-    this.xSpeed = scale * 1
-    this.ySpeed = 0
+    this.x = 0;
+    this.y = 0;
+    this.xSpeed = scale * 1;
+    this.ySpeed = 0;
+    this.total = 0;
+    this.tale = [];
 
     this.draw = () => {
-        ctx.fillStyle = "#ADD5FF"
+        for(var i = 0; i < this.tale.length; i++){
+            ctx.fillStyle = "#ADD5FF"
+            ctx.fillRect(this.tale[i].x, this.tale[i].y, scale, scale)
+        }
+
         ctx.fillRect(this.x, this.y, scale, scale)
     }
 
     this.upDate = () => {
         this.x += this.xSpeed;
         this.y += this.ySpeed;
+
+        for(var i = 0; i < this.tale.length-1; i++){
+            this.tale[i] = this.tale[i+1]
+        }
+
+        this.tale[this.total-1] = {x : this.x, y : this.y}
 
         if(this.x > canvas.width) this.x = 0
         if(this.x < 0) this.x = canvas.width
@@ -38,6 +50,14 @@ function Snake(){
                 this.ySpeed = 0
                 break;
         }
+    }
 
+    this.eatFruit = (fruit) => {
+        if(this.x === fruit.x && this.y === fruit.y){
+            this.total++
+            console.log(this.total)
+            return true
+        } 
+        return false
     }
 }
